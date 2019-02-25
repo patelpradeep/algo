@@ -48,4 +48,58 @@ int main()
     }
     return 0;
 }
+#include <bits/stdc++.h>
+using namespace std;
+#include <vector>
+
+
+int partition(vector<int> & arr, int l , int h) {
+    int p = arr[l];
+    int w = h;
+    //cout << "L :" << l << "H: "<< h << endl; 
+    for (int r = h ; r > 0; r--) {
+        if (arr[r] > p) {
+            swap(arr[r], arr[w]);
+            w--;
+        }
+    }    
+    swap(arr[w], arr[l]);
+ 
+    return w;
+}
+
+void qs(vector <int> &arr, int low, int high) {
+	
+    if (low == high) return;
+    if (low > high) return;
+    int pivot = partition(arr, low, high);
+   
+    qs(arr, low, pivot - 1);
+    qs(arr, pivot + 1, high);
+
+    for (int i = low; i <= high; ++i) {
+      cout << arr[i] << " "; 
+    }
+    cout << endl;
+}
+
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    vector <int> arr(n);
+
+    
+    for (int i = 0; i < (int)n; ++i) {
+      cin >> arr[i];
+    }
+    int low = 0, high = arr.size() - 1;
+    //cout << "low " << low << "high " << high << endl;
+    qs(arr, low, high);
+
+    return 0;
+}
+
 
